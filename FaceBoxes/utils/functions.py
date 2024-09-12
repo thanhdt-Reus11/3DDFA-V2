@@ -30,10 +30,10 @@ def load_model(model, pretrained_path, load_to_cpu):
         sys.exit('-1')
     # print('Loading pretrained model from {}'.format(pretrained_path))
     if load_to_cpu:
-        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage)
+        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage, weights_only=False)
     else:
         device = torch.cuda.current_device()
-        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
+        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device), weights_only=False)
     if "state_dict" in pretrained_dict.keys():
         pretrained_dict = remove_prefix(pretrained_dict['state_dict'], 'module.')
     else:
